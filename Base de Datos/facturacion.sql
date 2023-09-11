@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-08-2023 a las 01:00:37
+-- Tiempo de generación: 11-09-2023 a las 08:34:36
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -35,19 +35,14 @@ CREATE TABLE `cliente` (
   `direccion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `detallefactura`
+-- Volcado de datos para la tabla `cliente`
 --
 
-CREATE TABLE `detallefactura` (
-  `iddetallefactura` bigint(11) NOT NULL,
-  `idfactura` bigint(11) DEFAULT NULL,
-  `idproducto` int(11) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
-  `preciototal` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+INSERT INTO `cliente` (`idcliente`, `dni`, `nombre`, `telefono`, `direccion`) VALUES
+(4, 76589432, 'Manuel', 985476395, 'Avenida Ejercito 69'),
+(5, 74521896, 'Noel', 965238741, 'Vallecito 125'),
+(6, 84571263, 'Juan', 985632596, 'Calle Estados Unidos 14');
 
 -- --------------------------------------------------------
 
@@ -60,8 +55,18 @@ CREATE TABLE `factura` (
   `fecha` datetime NOT NULL,
   `idusuario` int(11) DEFAULT NULL,
   `idcliente` int(11) DEFAULT NULL,
-  `totaltactura` decimal(10,2) DEFAULT NULL
+  `idproducto` int(11) DEFAULT NULL,
+  `cantidad` int(11) NOT NULL,
+  `totalfactura` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`idfactura`, `fecha`, `idusuario`, `idcliente`, `idproducto`, `cantidad`, `totalfactura`) VALUES
+(7, '2023-09-11 08:28:05', 3, 4, 2, 126, 1666),
+(8, '2023-09-11 08:32:11', 7, 5, 3, 2, 10);
 
 -- --------------------------------------------------------
 
@@ -73,9 +78,16 @@ CREATE TABLE `producto` (
   `idproducto` int(11) NOT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
   `precio` decimal(10,2) DEFAULT NULL,
-  `existencia` int(11) DEFAULT NULL,
-  `foto` text DEFAULT NULL
+  `existencia` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idproducto`, `descripcion`, `precio`, `existencia`) VALUES
+(2, 'Leche 1ltr', 16.00, 10),
+(3, 'Yogurt 1/2 ltr', 5.00, 5);
 
 -- --------------------------------------------------------
 
@@ -87,6 +99,14 @@ CREATE TABLE `rol` (
   `idrol` int(11) NOT NULL,
   `rol` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`idrol`, `rol`) VALUES
+(1, 'Administrador'),
+(2, 'Empleado');
 
 -- --------------------------------------------------------
 
@@ -104,6 +124,14 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idusuario`, `nombre`, `correo`, `usuario`, `clave`, `rol`) VALUES
+(3, 'Carlos', 'carlos@gmail.com', 'carlos123', 'carlos', 1),
+(7, 'Esteban', 'esteban@gmail.com', 'esteban75', 'esteban', 2);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -114,20 +142,13 @@ ALTER TABLE `cliente`
   ADD PRIMARY KEY (`idcliente`);
 
 --
--- Indices de la tabla `detallefactura`
---
-ALTER TABLE `detallefactura`
-  ADD PRIMARY KEY (`iddetallefactura`),
-  ADD KEY `codproducto` (`idproducto`),
-  ADD KEY `nofactura` (`idfactura`);
-
---
 -- Indices de la tabla `factura`
 --
 ALTER TABLE `factura`
   ADD PRIMARY KEY (`idfactura`),
   ADD KEY `usuario` (`idusuario`),
-  ADD KEY `codcliente` (`idcliente`);
+  ADD KEY `codcliente` (`idcliente`),
+  ADD KEY `idproducto` (`idproducto`);
 
 --
 -- Indices de la tabla `producto`
@@ -156,55 +177,43 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `detallefactura`
---
-ALTER TABLE `detallefactura`
-  MODIFY `iddetallefactura` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `idfactura` bigint(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idfactura` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `idrol` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idrol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `detallefactura`
---
-ALTER TABLE `detallefactura`
-  ADD CONSTRAINT `detallefactura_ibfk_1` FOREIGN KEY (`idfactura`) REFERENCES `factura` (`idfactura`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detallefactura_ibfk_2` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `factura`
 --
 ALTER TABLE `factura`
   ADD CONSTRAINT `factura_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `factura_ibfk_2` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`idcliente`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `factura_ibfk_2` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`idcliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `factura_ibfk_3` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
