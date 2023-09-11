@@ -6,7 +6,7 @@ include ("conexion.php");		// Conexión a la base de datos (asegúrate de comple
 $idfactura = $_POST['idfactura']; 			// Variable de referencia
 
 // Consulta SQL para obtener la fecha de la tabla factura
-$sqlFechaFactura = "SELECT fecha FROM factura WHERE idfactura = $idfactura"; // Supongamos que quieres la fecha de la factura con ID 1
+$sqlFechaFactura = "SELECT fecha, cantidad, totalfactura FROM factura WHERE idfactura = $idfactura"; // Supongamos que quieres la fecha de la factura con ID 1
 
 $resultFechaFactura = $mysqli->query($sqlFechaFactura);
 
@@ -14,12 +14,17 @@ if ($resultFechaFactura->num_rows > 0) {
     // Obtiene la fecha y asigna a una variable
     $rowFechaFactura = $resultFechaFactura->fetch_assoc();
     $fechaFactura = $rowFechaFactura['fecha'];
+	$cantidad = $rowFechaFactura['cantidad'];
+	$totalFactura = $rowFechaFactura['totalfactura'];
+	$valorventa=$totalFactura-($totalFactura*18/118);
+	$valorventa=round($valorventa,2);
+	$igv=$totalFactura-$valorventa;
 } else {
     echo "No se encontraron resultados para la fecha de la factura.";
 }
 
 // Consulta SQL para obtener el nombre y dirección del cliente
-$sqlCliente = "SELECT nombre, direccion FROM cliente WHERE idcliente= 4"; // Supongamos que quieres los datos del cliente con ID 1
+$sqlCliente = "SELECT cliente.nombre, cliente.direccion, cliente.dni FROM factura INNER JOIN cliente ON factura.idcliente = cliente.idcliente WHERE factura.idfactura = $idfactura"; // Supongamos que quieres los datos del cliente con ID 1
 
 $resultCliente = $mysqli->query($sqlCliente);
 
@@ -28,12 +33,13 @@ if ($resultCliente->num_rows > 0) {
     $rowCliente = $resultCliente->fetch_assoc();
     $nombreCliente = $rowCliente['nombre'];
     $direccionCliente = $rowCliente['direccion'];
+	$dniCliente = $rowCliente['dni'];
 } else {
     echo "No se encontraron resultados para el cliente.";
 }
 
 
-$sqlUsuario = "SELECT nombre FROM usuario WHERE idusuario = 3"; // Supongamos que quieres el nombre de usuario con ID 1
+$sqlUsuario = "SELECT usuario.nombre FROM factura INNER JOIN usuario ON factura.idusuario = usuario.idusuario WHERE factura.idfactura = $idfactura"; // Supongamos que quieres el nombre de usuario con ID 1
 
 $resultUsuario = $mysqli->query($sqlUsuario);
 
@@ -44,7 +50,18 @@ if ($resultUsuario->num_rows > 0) {
 } else {
     echo "No se encontraron resultados para el usuario.";
 }
+$sqlDescripcion = "SELECT producto.descripcion, producto.precio FROM factura INNER JOIN producto ON factura.idproducto = producto.idproducto WHERE factura.idfactura =$idfactura"; // Supongamos que quieres el nombre de usuario con ID 1
 
+$resultDescripcion = $mysqli->query($sqlDescripcion);
+
+if ($resultDescripcion->num_rows > 0) {
+    // Obtiene el nombre de usuario y asigna a una variable
+    $rowDescripcion = $resultDescripcion->fetch_assoc();
+    $descripcion = $rowDescripcion['descripcion'];
+	$precio = $rowDescripcion['precio'];
+} else {
+    echo "No se encontraron resultados para la descripcion.";
+}
 
 /*
 // Ahora puedes usar las variables $fechaFactura, $nombreCliente y $direccionCliente como necesites
@@ -98,7 +115,7 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	$pdf->SetFont('Arial','',10);
 	$pdf->Cell(37,7,utf8_decode("Fecha de vencimiento:"),0,0);
 	$pdf->SetTextColor(97,97,97);
-	$pdf->Cell(116,7,utf8_decode(date($fechaFactura)),0,0,'L');
+	$pdf->Cell(116,7,utf8_decode(date("Y-m-d H:m:s",strtotime($fechaFactura."+ 1 days"))),0,0,'L');
 	$pdf->SetFont('Arial','B',10);
 	$pdf->SetTextColor(39,39,51);
 	$pdf->Cell(35,7,utf8_decode(strtoupper("Factura Nro.")),0,0,'C');
@@ -111,7 +128,7 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	$pdf->Cell(134,7,utf8_decode($nombreUsuario),0,0,'L');
 	$pdf->SetFont('Arial','B',10);
 	$pdf->SetTextColor(97,97,97);
-	$pdf->Cell(35,7,utf8_decode(strtoupper("1")),0,0,'C');
+	$pdf->Cell(35,7,utf8_decode(strtoupper($idfactura)),0,0,'C');
 
 	$pdf->Ln(10);
 
@@ -121,9 +138,9 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	$pdf->SetTextColor(97,97,97);
 	$pdf->Cell(60,7,utf8_decode($nombreCliente),0,0,'L');
 	$pdf->SetTextColor(39,39,51);
-	$pdf->Cell(8,7,utf8_decode("Ruc: "),0,0,'L');
+	$pdf->Cell(8,7,utf8_decode("Doc: "),0,0,'L');
 	$pdf->SetTextColor(97,97,97);
-	$pdf->Cell(60,7,utf8_decode("00000000"),0,0,'L');
+	$pdf->Cell(60,7,utf8_decode($dniCliente),0,0,'L');
 	
 
 	$pdf->Ln(7);
@@ -131,7 +148,7 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	$pdf->SetTextColor(39,39,51);
 	$pdf->Cell(6,7,utf8_decode("Dir:"),0,0);
 	$pdf->SetTextColor(97,97,97);
-	$pdf->Cell(109,7,utf8_decode($direccionCliente),0,0);
+	$pdf->Cell(109,7,utf8_decode( $direccionCliente),0,0);
 
 	$pdf->Ln(9);
 
@@ -155,12 +172,12 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 
 
 	/*----------  Detalles de la tabla  ----------*/
-	$pdf->Cell(78,7,utf8_decode("Nombre de producto a vender"),'L',0,'C');
+	$pdf->Cell(78,7,utf8_decode($descripcion),'L',0,'C');
 	$pdf->Cell(12,7,utf8_decode("Kg"),'L',0,'C');
-	$pdf->Cell(15,7,utf8_decode("7"),'L',0,'C');
-	$pdf->Cell(25,7,utf8_decode("$10 USD"),'L',0,'C');
-	$pdf->Cell(19,7,utf8_decode("$0.00 USD"),'L',0,'C');
-	$pdf->Cell(32,7,utf8_decode("$70.00 USD"),'LR',0,'C');
+	$pdf->Cell(15,7,utf8_decode($cantidad),'L',0,'C');
+	$pdf->Cell(25,7,utf8_decode(" S/. $precio"),'L',0,'C');
+	$pdf->Cell(19,7,utf8_decode("S/.0.00 "),'L',0,'C');
+	$pdf->Cell(32,7,utf8_decode("S/.$totalFactura"),'LR',0,'C');
 	$pdf->Ln(7);
 	/*----------  Fin Detalles de la tabla  ----------*/
 
@@ -172,14 +189,14 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	$pdf->Cell(100,7,utf8_decode(''),'T',0,'C');
 	$pdf->Cell(15,7,utf8_decode(''),'T',0,'C');
 	$pdf->Cell(32,7,utf8_decode("VALOR VENTA"),'T',0,'C');
-	$pdf->Cell(34,7,utf8_decode("+ $70.00 USD"),'T',0,'C');
+	$pdf->Cell(34,7,utf8_decode("S/.$valorventa" ),'T',0,'C');
 
 	$pdf->Ln(7);
 
 	$pdf->Cell(100,7,utf8_decode(''),'',0,'C');
 	$pdf->Cell(15,7,utf8_decode(''),'',0,'C');
 	$pdf->Cell(32,7,utf8_decode("I.G.V (18.00)"),'',0,'C');
-	$pdf->Cell(34,7,utf8_decode("+ $0.00 USD"),'',0,'C');
+	$pdf->Cell(34,7,utf8_decode("S/.$igv"),'',0,'C');
 
 	$pdf->Ln(7);
 
@@ -188,7 +205,7 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 
 
 	$pdf->Cell(32,7,utf8_decode("TOTAL A PAGAR"),'T',0,'C');
-	$pdf->Cell(34,7,utf8_decode("$70.00 USD"),'T',0,'C');
+	$pdf->Cell(34,7,utf8_decode("S/.$totalFactura"),'T',0,'C');
 
 	$pdf->Ln(12);
 

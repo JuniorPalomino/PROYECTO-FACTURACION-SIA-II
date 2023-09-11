@@ -54,7 +54,7 @@ include("conexion.php");
                         $sql = "SELECT * FROM factura";
                         $query = mysqli_query($mysqli, $sql);
                         while ($row = mysqli_fetch_array($query)): ?>
-                            <tr action="Impresion_Factura/invoice.php" method="POST">
+                            <tr>
                                 <td name="idfactura">
                                     <?= $row['idfactura'] ?>
                                 </td>
