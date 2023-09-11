@@ -83,7 +83,7 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	# Encabezado y datos de la empresa #
 	$pdf->SetFont('Arial','B',16);
 	$pdf->SetTextColor(32,100,210);
-	$pdf->Cell(150,10,utf8_decode(strtoupper("Nombre de empresa")),0,0,'L');
+	$pdf->Cell(150,10,utf8_decode(strtoupper("Servicios Generales")),0,0,'L');
 
 	$pdf->Ln(9);
 
@@ -161,8 +161,8 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	$pdf->Cell(12,8,utf8_decode("Und."),1,0,'C',true);
 	$pdf->Cell(15,8,utf8_decode("Cant."),1,0,'C',true);
 	$pdf->Cell(25,8,utf8_decode("Precio"),1,0,'C',true);
-	$pdf->Cell(19,8,utf8_decode("Desc."),1,0,'C',true);
-	$pdf->Cell(32,8,utf8_decode("Subtotal"),1,0,'C',true);
+	//$pdf->Cell(19,8,utf8_decode("Desc."),1,0,'C',true);
+	$pdf->Cell(51,8,utf8_decode("Importe Total"),1,0,'C',true);
 
 	$pdf->Ln(8);
 
@@ -176,8 +176,8 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	$pdf->Cell(12,7,utf8_decode("Kg"),'L',0,'C');
 	$pdf->Cell(15,7,utf8_decode($cantidad),'L',0,'C');
 	$pdf->Cell(25,7,utf8_decode(" S/. $precio"),'L',0,'C');
-	$pdf->Cell(19,7,utf8_decode("S/.0.00 "),'L',0,'C');
-	$pdf->Cell(32,7,utf8_decode("S/.$totalFactura"),'LR',0,'C');
+	//$pdf->Cell(19,7,utf8_decode("S/.0.00 "),'L',0,'C');
+	$pdf->Cell(51,7,utf8_decode("S/.$totalFactura"),'LR',0,'C');
 	$pdf->Ln(7);
 	/*----------  Fin Detalles de la tabla  ----------*/
 
@@ -204,7 +204,7 @@ echo "Dirección del cliente: " . $direccionCliente . "<br>";
 	$pdf->Cell(15,7,utf8_decode(''),'',0,'C');
 
 
-	$pdf->Cell(32,7,utf8_decode("TOTAL A PAGAR"),'T',0,'C');
+	$pdf->Cell(32,7,utf8_decode("IMPORTE A PAGAR"),'T',0,'C');
 	$pdf->Cell(34,7,utf8_decode("S/.$totalFactura"),'T',0,'C');
 
 	$pdf->Ln(12);

@@ -140,7 +140,6 @@ $query = mysqli_query($mysqli, $sql);
 
                 <input type="text" placeholder="Cantidad" name="cantidad" required>
 
-                <input type="text" placeholder="Total de la Factura" name="totalfactura" required>
 
                 <input type="submit" onclick="add()" value="Agregar">
             </form>
@@ -179,7 +178,6 @@ $query = mysqli_query($mysqli, $sql);
                                 <th>ID_CLIENTE</th>
                                 <th>ID_PRODUCTO</th>
                                 <th>CANTIDAD</th>
-                                <th>TOTAL FACTURA</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -204,9 +202,6 @@ $query = mysqli_query($mysqli, $sql);
                                     </td>
                                     <td>
                                         <?= $row['cantidad'] ?>
-                                    </td>
-                                    <td>
-                                        <?= $row['totalfactura'] ?>
                                     </td>
                                     <td><a href="update-factura.php?id=<?= $row['idfactura'] ?>"
                                             class="users-table--edit">Editar</a></td>
