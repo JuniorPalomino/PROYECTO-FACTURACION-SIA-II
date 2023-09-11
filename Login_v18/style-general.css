@@ -1,0 +1,225 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+
+html {
+    
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+}
+body {
+    background-color: #8A2BE2; /* Color lila */
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff; /* Letras blancas */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.users-form {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+input[type="text"], input[type="password"], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+.table tr:hover {
+    background-color: #f5f5f5;
+}
+.footer-content {
+    background-color: transparent;
+}
+
+
+/* Estilos para la barra superior */
+/* Estilos generales */
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Estilos para la barra lateral */
+.navbar-nav {
+    background-color: #2C3E50;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    color: #ECF0F1;
+    background-color: #34495E;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #ECF0F1;
+    transition: background-color 0.3s;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: #34495E;
+}
+
+.navbar-nav .sidebar-brand {
+    color: #ECF0F1;
+}
+
+.navbar-nav .sidebar-brand:hover {
+    color: #BDC3C7;
+}
+
+/* Estilos para el topbar */
+.topbar {
+    border-bottom: 1px solid #EAEDED;
+}
+
+.topbar .navbar-nav .nav-item .nav-link {
+    color: #2C3E50;
+}
+
+.topbar .navbar-nav .nav-item .nav-link:hover {
+    color: #34495E;
+}
+
+/* Estilos para los dropdowns en el topbar */
+.dropdown-menu {
+    border: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #EAEDED;
+}
+
+/* Estilos para los íconos */
+.fa-solid, .fa-brands, .fa-sharp {
+    color: #BDC3C7;
+}
+
+/* Estilos para los dividers */
+.sidebar-divider {
+    border-top: 1px solid #34495E;
+}
+
+/* Estilos para el botón de cerrar sesión */
+.dropdown-item i.fas.fa-sign-out-alt {
+    color: #E74C3C;
+}
+
+/* Estilos para el botón de toggle sidebar */
+#sidebarToggleTop {
+    color: #2C3E50;
+}
+
+#sidebarToggleTop:hover {
+    color: #34495E;
+}
+
+/* Estilos para el logo de la empresa en la barra lateral */
+.sidebar-brand-icon i.fa-solid.fa-building-columns {
+    color: #BDC3C7;
+}
+
+
+header {
+    background-color: #2C3E50;
+}
+
+header a.text-dark {
+    color: #ECF0F1 !important;
+}
+
+header a.text-dark:hover {
+    color: #BDC3C7 !important;
+}
+
+header .nav-link {
+    color: #ECF0F1;
+    transition: color 0.3s;
+}
+
+header .nav-link:hover {
+    color: #BDC3C7;
+}
+
+header .form-control {
+    border: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+header .dropdown-menu {
+    border: none;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+header .dropdown-item {
+    transition: background-color 0.3s;
+}
+
+header .dropdown-item:hover {
+    background-color: #EAEDED;
+}
+
+/* Estilos para el logo */
+header .bi {
+    color: #BDC3C7;
+}
+
+/* Estilos para el botón de cerrar sesión */
+header .dropdown-item i.fas.fa-sign-out-alt {
+    color: #E74C3C;
+}

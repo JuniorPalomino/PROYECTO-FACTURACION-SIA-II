@@ -1,0 +1,133 @@
+body {
+    background-color: #a79d9d;
+    font-family: 'Arial', sans-serif;
+}
+
+p {
+    color: black;
+}
+
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2E5A88; /* Un azul oscuro y profesional */
+    font-weight: bold;
+}
+
+.feature-image {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px 0;
+}
+
+.feature-description {
+    font-size: 16px;
+    color: #555;
+}
+
+.feature-box {
+    background-color: #E9ECEF; /* Un gris claro */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    color: black;
+    text-align: center; /* Centra el texto horizontalmente */
+    vertical-align: middle;
+}
+
+th, td {
+    padding: 8px 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #D3D3D3; /* Un gris claro */
+}
+
+.users-form form input[type=text],
+.users-form form input[type=text],
+.users-form form input[type=text] {
+    padding: 8px;
+    border: 2px solid #B0C4DE; /* Un azul acero claro */
+    border-radius: 4px;
+    outline: none;
+    transition: .3s;
+}
+
+.users-form form input[type=text]:focus,
+.users-form form input[type=text]:focus,
+.users-form form input[type=text]:focus {
+    border-color: #2E5A88; /* Un azul oscuro y profesional */
+    box-shadow: 0 0 6px 0 #2E5A88;
+}
+
+.users-form form input[type=submit] {
+    background-color: #2E5A88; /* Un azul oscuro y profesional */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.users-form form input[type=submit]:hover {
+    background-color: #1B3C5D; /* Un azul más oscuro para el hover */
+}
+
+.users-table--edit {
+    background: #2E5A88; /* Un azul oscuro y profesional */
+    padding: 6px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.users-table--delete {
+    background: #B22222; /* Un rojo oscuro para el botón de eliminar */
+    padding: 6px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.users-table--imprimir {
+    background-color: #2E5A88; /* Un azul oscuro y profesional */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: block; /* Hace que el botón se muestre como un bloque */
+    margin: 0 auto; /* Centra el botón horizontalmente */
+}
+
+
+.users-table--imprimir:hover {
+    background-color: #0d365e; /* Un azul más oscuro para el hover */
+}
+footer {
+    background-color: transparent; /* Hace que el fondo del footer sea transparento */
+}

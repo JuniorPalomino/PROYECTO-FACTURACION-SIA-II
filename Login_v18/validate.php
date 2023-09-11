@@ -12,7 +12,7 @@ $result=$mysqli->query($query);
 
 if($result->num_rows==1){
     $_SESSION['user']=$username;
-    header('Location:inicio.php');
+    header('Location:home2.php');
 }
 else{
     header('Location:index.php');
